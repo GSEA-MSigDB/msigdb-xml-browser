@@ -29,7 +29,7 @@ The GSEA project is currently a joint effort of the Broad Institute and the Univ
 
 # Dependencies
 
-GSEA Desktop is 100% Pure Java.  Java 8 is required for our pre-built binaries.  Builds against other versions of Java may be possible but are unsupported.  **Oracle Java is recommended as there are known issues with OpenJDK.**
+GSEA Desktop is 100% Pure Java.  Java 8 is required for our pre-built binaries.  Builds against other versions of Java may be possible but are unsupported.  **Oracle Java is recommended as there are known issues when running with OpenJDK.**
 
 See the [LICENSE-3RD-PARTY.txt](LICENSE-3RD-PARTY.txt) file for a full list of the MSigDB XML Browser library dependencies.  In our binary builds, all required 3rd party library code is bundled into the single self-contained MSigDB XML Browser jar file so that no additional downloads or installation are required. 
 
