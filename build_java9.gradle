@@ -1,0 +1,168 @@
+// Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents 
+// of the University of California. All rights reserved.
+apply plugin: 'java'
+import org.apache.tools.ant.filters.ReplaceTokens
+
+ext.moduleName = 'org.gsea-msigdb.msigdb-xml-browser'
+ext.mainClassName = 'xapps.browser.gsea.MSigDB_XML_Browser'
+
+// Put the Java 9 build into a special dir to avoid accidental collisions.
+// Despite this, it is recommended that Java 8 vs. 9 builds be run in different locations.
+buildDir = 'build_java9' 
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java', 'src/main/java9']
+        }
+    }
+}
+
+configurations {
+    jidePatchModuleLibs
+}
+
+dependencies {
+    compile fileTree(dir: 'modules', include: '*.jar')
+    jidePatchModuleLibs fileTree(dir: 'lib', include: '*.jar')
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.4.1'
+}
+
+sourceCompatibility = 1.9
+targetCompatibility = 1.9
+
+processResources {
+    // Set the current timestamp for release builds; pass in a blank property to enable (i.e. -Ptimestamp="" at CLI)
+    if (timestamp.equals("")) { timestamp = date.format("EEE, d MMM yyyy HH:mm:ss Z") }
+
+    filesMatching('resources/edu/mit/broad/msigdb_browser/genome/resources/build.properties') {
+        filter (ReplaceTokens,
+                tokens: [ VERSION: version, VERSION.MAJOR: version.major, VERSION.MINOR: version.minor, VERSION.PATCH: version.patch,
+                          BUILD: buildNumber, TIMESTAMP: timestamp ])
+    }
+}
+
+jar {
+    archiveName = "msigdb-xml-browser-minimal-${version}.jar"
+    manifest {
+        attributes(
+            "Permissions": "all-permissions",
+            "Application-Name": "MSigDB_Browser",
+            "Built-By": System.getProperty('user.name'),
+            "MSigDB_Browser-Build-Date": timestamp,
+            "Main-Class": mainClassName,
+        )
+    }
+}
+
+compileJava {
+    inputs.property("moduleName", moduleName)
+    doFirst {
+        options.compilerArgs = [
+            '--module-path', classpath.asPath,
+            '--patch-module=jide.common=' + configurations.jidePatchModuleLibs.asPath,
+            "--add-exports=jide.common/com.jidesoft.grid=${moduleName}",
+            "--add-exports=jide.common/com.jidesoft.docking=${moduleName}",
+            "--add-exports=jide.common/com.jidesoft.status=${moduleName}"
+        ]
+        classpath = files()
+    }
+}
+
+task createDist(type: Copy, dependsOn: jar)  {
+    from ('scripts/java9') {
+        include 'msigdb-xml-browser.bat'
+        include 'msigdb-xml-browser.command'
+        include 'msigdb-xml-browser.sh'
+        include 'msigdb-xml-browser-hidpi.sh'
+        include 'msigdb-xml-browser.args'
+        include 'readme.txt'
+    }
+    
+    with copySpec {
+        from ("modules") {
+            include '*.jar'
+        }
+        from ("${buildDir}/libs") {
+            include "msigdb-xml-browser-minimal-${version}.jar"
+        }
+        into "modules"
+    }
+    with copySpec {
+        from ("lib") {
+            include '*.jar'
+        }
+        into "lib"
+    }
+
+    into "${buildDir}/MSigDB_XML_Browser-dist"
+}
+
+task createDistZip(type: Zip, dependsOn: createDist) {
+    archiveName = "MSigDB_XML_Browser_${version}.zip"
+    destinationDir = file("${buildDir}/distZip")
+    baseName = "MSigDB_XML_Browser"
+    from "${buildDir}/MSigDB_XML_Browser-dist" exclude "*.bat"
+    into createDistZip.baseName + "_${version}"
+
+    doLast {
+        project.exec { commandLine('chmod', '775', createDistZip.archivePath ) }
+    }
+}
+
+task createMacDist(type: Copy, dependsOn: createDist) {
+    with copySpec {
+        from ("scripts/mac.app") exclude "Contents/Info.plist.template"
+        into "MSigDB_XML_Browser_${version}.app"
+    }
+    with copySpec {
+        from ("scripts/java9/Info.plist.template")
+        filter (ReplaceTokens, tokens: [ VERSION: version ])
+        rename "Info.plist.template", "Info.plist"
+        into "MSigDB_XML_Browser_${version}.app/Contents"
+    }
+    with copySpec {
+        from ("${buildDir}/MSigDB_XML_Browser-dist/modules") include '*.jar'
+        into "MSigDB_XML_Browser_${version}.app/Contents/Java/modules"
+    }
+    with copySpec {
+        from ("${buildDir}/MSigDB_XML_Browser-dist/lib") include '*.jar'
+        into "MSigDB_XML_Browser_${version}.app/Contents/Java/lib"
+    }
+
+    into "${buildDir}/MSigDB_XML_Browser-Mac-dist"
+
+    doLast {
+        project.exec { commandLine('chmod', '775', "${buildDir}/MSigDB_XML_Browser-Mac-dist/MSigDB_XML_Browser_${version}.app" ) }
+    }
+}
+
+task createMacDistZip(type: Zip, dependsOn: createMacDist) {
+    archiveName = "MSigDB_XML_Browser_${version}.app.zip"
+    destinationDir = file("${buildDir}/distZip")
+    from "${buildDir}/MSigDB_XML_Browser-Mac-dist"
+    
+    doLast {
+        project.exec { commandLine('chmod', '775', createMacDistZip.archivePath ) }
+    }
+}
+
+task createWinDistZip(type: Zip, dependsOn: createDist) {
+    archiveName = "MSigDB_XML_Browser_Win_${version}.zip"
+    destinationDir = file("${buildDir}/distZip")
+    baseName = "MSigDB_XML_Browser_Win"
+    from("${buildDir}/MSigDB_XML_Browser-dist") {
+        exclude "*.sh"
+        exclude "msigdb-xml-browser.command"
+    }
+    into createWinDistZip.baseName + "_${version}"
+
+    doLast {
+        project.exec { commandLine('chmod', '775', createWinDistZip.archivePath ) }
+    }
+}
+
+build.dependsOn createDistZip,createMacDistZip,createWinDistZip
