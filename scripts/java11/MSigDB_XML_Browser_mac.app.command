@@ -16,9 +16,9 @@ else
     echo "Bundled JDK not found.  Using system JDK."
 fi
 
-exec java --module-path="${prefix}/lib" -Xmx4g \
-    @"${prefix}/msigdb-xml-browser.args" \
-    --patch-module="jide.common=${prefix}/lib/jide-components-3.7.4.jar:${prefix}/lib/jide-dock-3.7.4.jar:${prefix}/lib/jide-grids-3.7.4.jar" \
+exec java --module-path="${prefix}/../Java/lib" -Xmx4g \
+    @"${prefix}/../Java/msigdb-xml-browser.args" \
+    --patch-module="jide.common=${prefix}/../Java/lib/jide-components-3.7.4.jar:${prefix}/../Java/lib/jide-dock-3.7.4.jar:${prefix}/../Java/lib/jide-grids-3.7.4.jar" \
     -Xdock:name="MSigDB XML Browser" \
-    -Xdock:icon="${prefix}/XBench64x64.gif" \
-    --module=org.gsea-msigdb.gsea/xapps.browser.gsea.MSigDB_XML_Browser "$@"
+    -Xdock:icon="${prefix}/../Resources/XBench64x64.gif" \
+	--module=org.gsea-msigdb.gsea/xapps.browser.gsea.MSigDB_XML_Browser "$@"

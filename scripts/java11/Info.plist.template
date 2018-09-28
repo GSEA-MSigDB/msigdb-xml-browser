@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>JavaAppLauncher</string>
+	<string>MSigDB_XML_Browser</string>
 	<key>CFBundleIconFile</key>
 	<string>gsea_icon.icns</string>
 	<key>CFBundleIdentifier</key>
@@ -28,29 +28,6 @@
 	<string></string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.developer-tools</string>
-	<key>JVMOptions</key>
-	<array>
-		<string>--module-path=$APP_ROOT/Contents/Java/modules</string>
-		<string>--patch-module=jide.common=$APP_ROOT/Contents/Java/lib/jide-components-3.7.4.jar:$APP_ROOT/Contents/Java/lib/jide-dock-3.7.4.jar:$APP_ROOT/Contents/Java/lib/jide-grids-3.7.4.jar</string>
-		<string>--add-exports=jide.common/com.jidesoft.grid=org.gsea-msigdb.msigdb-xml-browser</string>
-        <string>--add-exports=jide.common/com.jidesoft.docking=org.gsea-msigdb.msigdb-xml-browser</string>
-        <string>--add-exports=jide.common/com.jidesoft.status=org.gsea-msigdb.msigdb-xml-browser</string>
-		<string>--add-exports=java.desktop/com.sun.java.swing.plaf.windows=jide.common</string>
-		<string>--add-exports=java.desktop/javax.swing.plaf.synth=jide.common</string>
-		<string>--add-exports=java.desktop/sun.swing=jide.common</string>
-		<string>--add-exports=java.desktop/sun.awt=jide.common</string>
-		<string>--add-exports=java.desktop/sun.awt.image=jide.common</string>
-		<string>--add-exports=java.desktop/sun.awt.shell=jide.common</string>
-		<string>--add-exports=java.desktop/sun.awt.dnd=jide.common</string>
-		<string>--add-exports=java.desktop/sun.awt.windows=jide.common</string>
-		<string>--add-exports=java.base/sun.security.action=jide.common</string>
-		<string>-Xmx4g</string>
-		<string>-Xdock:name=MSigDB XML Browser</string>
-	</array>
-    <key>JVMMainClassName</key>
-    <string>--module=org.gsea-msigdb.msigdb-xml-browser/xapps.browser.gsea.MSigDB_XML_Browser</string>
-	<key>JVMArguments</key>
-	<array/>
 	<key>NSHighResolutionCapable</key>
     <string>true</string>
 </dict>

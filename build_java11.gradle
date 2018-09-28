@@ -6,14 +6,14 @@ import org.apache.tools.ant.filters.ReplaceTokens
 ext.moduleName = 'org.gsea-msigdb.msigdb-xml-browser'
 ext.mainClassName = 'xapps.browser.gsea.MSigDB_XML_Browser'
 
-// Put the Java 9 build into a special dir to avoid accidental collisions.
-// Despite this, it is recommended that Java 8 vs. 9 builds be run in different locations.
-buildDir = 'build_java9' 
+// Put the Java 11 build into a special dir to avoid accidental collisions.
+// Despite this, it is recommended that Java 8 vs. 11 builds be run in different locations.
+buildDir = 'build_java11'
 
 sourceSets {
     main {
         java {
-            srcDirs = ['src/main/java', 'src/main/java9']
+            srcDirs = ['src/main/java', 'src/main/java11']
         }
     }
 }
@@ -28,11 +28,13 @@ dependencies {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.4.1'
+    gradleVersion = '4.10.1'
 }
 
-sourceCompatibility = 1.9
-targetCompatibility = 1.9
+// Gradle bug prevents us from generating Java 11 bytecode: https://github.com/gradle/gradle/issues/5120
+// Workaround is to target Java 10 for now.
+sourceCompatibility = 10
+targetCompatibility = 10
 
 processResources {
     // Set the current timestamp for release builds; pass in a blank property to enable (i.e. -Ptimestamp="" at CLI)
@@ -73,96 +75,129 @@ compileJava {
 }
 
 task createDist(type: Copy, dependsOn: jar)  {
-    from ('scripts/java9') {
-        include 'msigdb-xml-browser.bat'
-        include 'msigdb-xml-browser.command'
-        include 'msigdb-xml-browser.sh'
-        include 'msigdb-xml-browser-hidpi.sh'
-        include 'msigdb-xml-browser.args'
+    from ("edu/mit/broad/msigdb_browser/genome/resources/XBench64x64.gif")
+    from ('scripts/java11') {
+        include 'msigdb-xml-browser*'
         include 'readme.txt'
     }
-    
     with copySpec {
-        from ("modules") {
-            include '*.jar'
-        }
-        from ("${buildDir}/libs") {
-            include "msigdb-xml-browser-minimal-${version}.jar"
-        }
+        from ("${buildDir}/libs")
+        from ("modules")
         into "modules"
     }
     with copySpec {
-        from ("lib") {
-            include '*.jar'
-        }
-        into "lib"
+        from ("lib") into "lib"
     }
-
     into "${buildDir}/MSigDB_XML_Browser-dist"
 }
 
-task createDistZip(type: Zip, dependsOn: createDist) {
-    archiveName = "MSigDB_XML_Browser_${version}.zip"
+task createLinuxDistZip(type: Zip, dependsOn: createDist) {
+    baseName = "MSigDB_XML_Browser_Linux"
+    archiveName = createLinuxDistZip.baseName + "_${version}_java11.zip"
     destinationDir = file("${buildDir}/distZip")
-    baseName = "MSigDB_XML_Browser"
-    from "${buildDir}/MSigDB_XML_Browser-dist" exclude "*.bat"
-    into createDistZip.baseName + "_${version}"
+    if (!jdkBundleLinux.equals("")) {
+        with copySpec { from jdkBundleLinux into "jdk-11" }
+    }
+    from ("${buildDir}/MSigDB_XML_Browser-dist") {
+        exclude "*.bat"
+        exclude "*.command"
+    }
+    into createLinuxDistZip.baseName + "_${version}_java11"
 
     doLast {
-        project.exec { commandLine('chmod', '775', createDistZip.archivePath ) }
+        project.exec { commandLine('chmod', '775', createLinuxDistZip.archivePath ) }
     }
 }
 
-task createMacDist(type: Copy, dependsOn: createDist) {
-    with copySpec {
-        from ("scripts/mac.app") exclude "Contents/Info.plist.template"
-        into "MSigDB_XML_Browser_${version}.app"
-    }
-    with copySpec {
-        from ("scripts/java9/Info.plist.template")
-        filter (ReplaceTokens, tokens: [ VERSION: version ])
-        rename "Info.plist.template", "Info.plist"
-        into "MSigDB_XML_Browser_${version}.app/Contents"
-    }
-    with copySpec {
-        from ("${buildDir}/MSigDB_XML_Browser-dist/modules") include '*.jar'
-        into "MSigDB_XML_Browser_${version}.app/Contents/Java/modules"
-    }
-    with copySpec {
-        from ("${buildDir}/MSigDB_XML_Browser-dist/lib") include '*.jar'
-        into "MSigDB_XML_Browser_${version}.app/Contents/Java/lib"
-    }
-
-    into "${buildDir}/MSigDB_XML_Browser-Mac-dist"
-
-    doLast {
-        project.exec { commandLine('chmod', '775', "${buildDir}/MSigDB_XML_Browser-Mac-dist/MSigDB_XML_Browser_${version}.app" ) }
-    }
-}
-
-task createMacDistZip(type: Zip, dependsOn: createMacDist) {
-    archiveName = "MSigDB_XML_Browser_${version}.app.zip"
+task createMacDistZip(type: Zip, dependsOn: createDist) {
+    baseName = "MSigDB_XML_Browser_Mac"
+    archiveName = createMacDistZip.baseName + "_${version}_java11.zip"
     destinationDir = file("${buildDir}/distZip")
-    from "${buildDir}/MSigDB_XML_Browser-Mac-dist"
-    
+    if (!jdkBundleMac.equals("")) {
+        with copySpec { from jdkBundleMac into "jdk-11" }
+    }
+    from ("${buildDir}/MSigDB_XML_Browser-dist") {
+        exclude "*.bat"
+        exclude "*_hidpi.sh"
+    }
+    into createMacDistZip.baseName + "_${version}_java11"
+
     doLast {
         project.exec { commandLine('chmod', '775', createMacDistZip.archivePath ) }
     }
 }
 
-task createWinDistZip(type: Zip, dependsOn: createDist) {
-    archiveName = "MSigDB_XML_Browser_Win_${version}.zip"
+task createMacAppDist(type: Copy, dependsOn: createDist) {
+    if (!jdkBundleMac.equals("")) {
+        with copySpec { from jdkBundleMac into "MSigDB_XML_Browser_${version}_java11.app/Contents/jdk-11" }
+    }
+    with copySpec {
+        from ("scripts/mac.app") {
+            exclude "Contents/Info.plist.template"
+            exclude "Contents/MacOS/JavaAppLauncher"
+        }
+        into "MSigDB_XML_Browser_${version}_java11.app"
+    }
+    with copySpec {
+        from ("scripts/java11/Info.plist.template")
+        filter (ReplaceTokens, tokens: [ VERSION: version ])
+        rename "Info.plist.template", "Info.plist"
+        into "MSigDB_XML_Browser_${version}_java11.app/Contents"
+    }
+    with copySpec {
+        from ("scripts/java11/MSigDB_XML_Browser_mac.app.command")
+        rename "MSigDB_XML_Browser_mac.app.command", "MSigDB_XML_Browser"
+        into "MSigDB_XML_Browser_${version}_java11.app/Contents/MacOS"
+    }
+    with copySpec {
+        from ("edu/mit/broad/msigdb_browser/genome/resources/XBench64x64.gif")
+        into "MSigDB_XML_Browser_${version}_java11.app/Contents/Resources"
+    }
+    with copySpec {
+        from ("${buildDir}/MSigDB_XML_Browser-dist/") include 'gsea.args'
+        into "MSigDB_XML_Browser_${version}_java11.app/Contents/Java/"
+    }
+    with copySpec {
+        from ("${buildDir}/MSigDB_XML_Browser-dist/modules") include '*.jar'
+        into "MSigDB_XML_Browser_${version}_java10.app/Contents/Java/modules"
+    }
+    with copySpec {
+        from ("${buildDir}/MSigDB_XML_Browser-dist/lib") include '*.jar'
+        into "MSigDB_XML_Browser_${version}_java10.app/Contents/Java/lib"
+    }
+    into "${buildDir}/MSigDB_XML_Browser-MacApp-dist"
+
+    doLast {
+        project.exec { commandLine('chmod', '775', "${buildDir}/MSigDB_XML_Browser-MacApp-dist/MSigDB_XML_Browser_${version}_java11.app" ) }
+    }
+}
+
+task createMacAppDistZip(type: Zip, dependsOn: createMacAppDist) {
+    archiveName = "MSigDB_XML_Browser_${version}_java11.zip"
     destinationDir = file("${buildDir}/distZip")
+    from "${buildDir}/MSigDB_XML_Browser-MacApp-dist"
+    
+    doLast {
+        project.exec { commandLine('chmod', '775', createMacAppDistZip.archivePath ) }
+    }
+}
+
+task createWinDistZip(type: Zip, dependsOn: createDist) {
     baseName = "MSigDB_XML_Browser_Win"
+    archiveName = createWinDistZip.baseName + "_${version}_java11.zip"
+    destinationDir = file("${buildDir}/distZip")
+    if (!jdkBundleWindows.equals("")) {
+        with copySpec { from jdkBundleWindows into "jdk-11" }
+    }
     from("${buildDir}/MSigDB_XML_Browser-dist") {
         exclude "*.sh"
-        exclude "msigdb-xml-browser.command"
+        exclude "*.command"
     }
-    into createWinDistZip.baseName + "_${version}"
+    into createWinDistZip.baseName + "_${version}_java11"
 
     doLast {
         project.exec { commandLine('chmod', '775', createWinDistZip.archivePath ) }
     }
 }
 
-build.dependsOn createDistZip,createMacDistZip,createWinDistZip
+build.dependsOn createLinuxDistZip,createMacDistZip,createMacAppDistZip,createWinDistZip
