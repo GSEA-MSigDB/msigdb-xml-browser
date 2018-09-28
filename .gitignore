@@ -1,5 +1,5 @@
 /bin/
-/proguard_opt_log/
+/proguard_log/
 *~
 .project
 .classpath
