@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package edu.mit.broad.msigdb_browser.vdb.msigdb;
 
-import edu.mit.broad.msigdb_browser.genome.XLogger;
 import edu.mit.broad.msigdb_browser.genome.objects.GeneSet;
 import edu.mit.broad.msigdb_browser.vdb.Organism;
 import edu.mit.broad.msigdb_browser.vdb.VdbRuntimeResources;
@@ -19,7 +18,7 @@ import java.util.Set;
  */
 public class GeneSetAnnotationImpl implements GeneSetAnnotation {
 
-    private Logger log = XLogger.getLogger(GeneSetAnnotationImpl.class);
+    private Logger log = Logger.getLogger(GeneSetAnnotationImpl.class);
 
     private GeneSet fGeneSet_orig;
 

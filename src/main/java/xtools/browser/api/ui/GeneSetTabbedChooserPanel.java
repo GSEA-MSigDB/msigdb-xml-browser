@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package xtools.browser.api.ui;
 
-import edu.mit.broad.msigdb_browser.genome.XLogger;
 import edu.mit.broad.msigdb_browser.genome.objects.FSet;
 import edu.mit.broad.msigdb_browser.genome.objects.GeneSet;
 import edu.mit.broad.msigdb_browser.genome.parsers.ParseUtils;
@@ -24,7 +23,7 @@ import java.util.ArrayList;
  */
 public class GeneSetTabbedChooserPanel extends JTabbedPane implements ChooserPanel {
 
-    private static final Logger klog = XLogger.getLogger(GeneSetTabbedChooserPanel.class);
+    private static final Logger klog = Logger.getLogger(GeneSetTabbedChooserPanel.class);
 
     private JList jlGeneSet;
 

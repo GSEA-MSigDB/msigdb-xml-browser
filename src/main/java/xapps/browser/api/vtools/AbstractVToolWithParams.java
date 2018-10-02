@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package xapps.browser.api.vtools;
 
-import edu.mit.broad.msigdb_browser.genome.XLogger;
 import edu.mit.broad.msigdb_browser.genome.viewers.Viewer;
 import edu.mit.broad.msigdb_browser.xbench.core.api.Application;
 import edu.mit.broad.msigdb_browser.xbench.core.api.DialogType;
@@ -26,7 +25,7 @@ public abstract class AbstractVToolWithParams extends AbstractVTool {
 
     public JTextArea taMessage;
 
-    protected static final transient Logger klog = XLogger.getLogger(AbstractVToolWithParams.class);
+    protected static final transient Logger klog = Logger.getLogger(AbstractVToolWithParams.class);
 
     protected ToolParamSet fParamSet;
 

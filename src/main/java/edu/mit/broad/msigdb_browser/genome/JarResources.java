@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 
 package edu.mit.broad.msigdb_browser.genome;
@@ -76,7 +76,7 @@ public class JarResources {
         try {
 
             kClassLoader = JarResources.class.getClassLoader();
-            klog = XLogger.getLogger(JarResources.class);
+            klog = Logger.getLogger(JarResources.class);
 
             /* strangely this seems to not work for the initial loading when running off off a jar file.
                Need to do the Toolkit.getDef .. thing.

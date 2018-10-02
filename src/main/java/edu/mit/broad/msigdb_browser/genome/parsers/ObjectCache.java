@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package edu.mit.broad.msigdb_browser.genome.parsers;
 
-import edu.mit.broad.msigdb_browser.genome.XLogger;
 import edu.mit.broad.msigdb_browser.genome.objects.GeneSetMatrix;
 import edu.mit.broad.msigdb_browser.genome.objects.PersistentObject;
 import edu.mit.broad.msigdb_browser.genome.reports.api.Report;
@@ -27,7 +26,7 @@ import java.util.*;
  */
 public class ObjectCache {
 
-    private final Logger log = XLogger.getLogger(ObjectCache.class);
+    private final Logger log = Logger.getLogger(ObjectCache.class);
 
     /**
      * key-> class names, value -> DefaultMutableTreeNode

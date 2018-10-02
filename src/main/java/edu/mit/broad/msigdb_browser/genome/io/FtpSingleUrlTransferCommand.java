@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package edu.mit.broad.msigdb_browser.genome.io;
 
@@ -22,7 +22,6 @@ import com.enterprisedt.net.ftp.FTPTransferType;
 import com.enterprisedt.net.ftp.FileTransferClient;
 import com.enterprisedt.net.ftp.FileTransferInputStream;
 
-import edu.mit.broad.msigdb_browser.genome.XLogger;
 import edu.mit.broad.msigdb_browser.xbench.core.api.Application;
 
 /**
@@ -32,7 +31,7 @@ import edu.mit.broad.msigdb_browser.xbench.core.api.Application;
  * @author David Eby
  */
 public class FtpSingleUrlTransferCommand {
-    private static final Logger klog = XLogger.getLogger(FtpSingleUrlTransferCommand.class);
+    private static final Logger klog = Logger.getLogger(FtpSingleUrlTransferCommand.class);
 
     private final FileTransferClient client;
     private final URL ftpURL;

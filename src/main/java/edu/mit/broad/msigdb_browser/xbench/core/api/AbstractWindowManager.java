@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package edu.mit.broad.msigdb_browser.xbench.core.api;
 
-import edu.mit.broad.msigdb_browser.genome.XLogger;
 import edu.mit.broad.msigdb_browser.xbench.core.ApplicationDialog;
 import edu.mit.broad.msigdb_browser.xbench.core.WrappedComponent;
 
@@ -20,7 +19,7 @@ public abstract class AbstractWindowManager implements WindowManager {
 
     private JFrame fRootFrame;
 
-    protected static final Logger klog = XLogger.getLogger(AbstractWindowManager.class);
+    protected static final Logger klog = Logger.getLogger(AbstractWindowManager.class);
 
     /**
      * Class constructor

@@ -1,10 +1,9 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package edu.mit.broad.msigdb_browser.xbench.prefs;
 
 import edu.mit.broad.msigdb_browser.genome.Conf;
-import edu.mit.broad.msigdb_browser.genome.XLogger;
 import edu.mit.broad.msigdb_browser.genome.swing.GuiHelper;
 import edu.mit.broad.msigdb_browser.genome.swing.fields.GFieldPlusChooser;
 import edu.mit.broad.msigdb_browser.genome.utils.SystemUtils;
@@ -27,7 +26,7 @@ import java.io.File;
  */
 public class XPreferencesFactory {
 
-    private static final Logger klog = XLogger.getLogger(XPreferencesFactory.class);
+    private static final Logger klog = Logger.getLogger(XPreferencesFactory.class);
 
     /**
      * runtime home directory (i.e user's home for the application

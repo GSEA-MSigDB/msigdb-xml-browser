@@ -1,9 +1,7 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package edu.mit.broad.msigdb_browser.genome.reports.api;
-
-import edu.mit.broad.msigdb_browser.genome.XLogger;
 
 import org.apache.log4j.Logger;
 
@@ -18,7 +16,7 @@ public class ToolComments {
 
     private List fComments;
 
-    private Logger log = XLogger.getLogger(ToolComments.class);
+    private Logger log = Logger.getLogger(ToolComments.class);
 
     public ToolComments() {
         this.fComments = new ArrayList();

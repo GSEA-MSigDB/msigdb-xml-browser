@@ -1,48 +1,39 @@
-/*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
- */
+/*******************************************************************************
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ *******************************************************************************/
 package xapps.browser.api.frameworks.fiji;
 
 import com.jidesoft.popup.JidePopup;
 import com.jidesoft.status.*;
 import com.jidesoft.swing.JideBoxLayout;
-
 import edu.mit.broad.msigdb_browser.genome.Conf;
 import edu.mit.broad.msigdb_browser.genome.JarResources;
-import edu.mit.broad.msigdb_browser.genome.XLogger;
 import edu.mit.broad.msigdb_browser.genome.viewers.SystemConsoleViewer;
 
-import org.apache.log4j.AppenderSkeleton;
-import org.apache.log4j.Level;
-import org.apache.log4j.spi.LoggingEvent;
-
 import javax.swing.*;
+
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.core.Filter;
+import org.apache.logging.log4j.core.Layout;
+import org.apache.logging.log4j.core.LogEvent;
+import org.apache.logging.log4j.core.appender.AbstractAppender;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 
-/**
- * @author Aravind Subramanian
- */
-public class StatusBarJideImpl extends AppenderSkeleton implements edu.mit.broad.msigdb_browser.xbench.core.StatusBar {
+public class StatusBarAppender extends AbstractAppender {
 
     private StatusBar fJideStatusBar;
 
     private LabelStatusBarItem fStatusBarLabelItem;
 
-    // Because i init and set the system consle at startup, the logging is auto in it
-    //private java.util.List fLogObjects;
-
-    //private static int MAX_SIZE = 50;
-
     private SystemConsoleViewer fSystemConsoleComp;
-
-    /**
-     * Class constructor
-     */
-    public StatusBarJideImpl() {
-
+    
+    public StatusBarAppender(String name, Filter filter, Layout<? extends Serializable> layout) {
+        super(name, filter, layout);
+        
         this.fJideStatusBar = new StatusBar();
         this.fSystemConsoleComp = new SystemConsoleViewer();
         //fSystemConsoleComp.setBorder(BorderFactory.createTitledBorder("Process messages (for # of permutations)"));
@@ -53,7 +44,7 @@ public class StatusBarJideImpl extends AppenderSkeleton implements edu.mit.broad
         //this.fLogObjects = new ArrayList(MAX_SIZE);
         this.fStatusBarLabelItem = new LabelStatusBarItem();
         fStatusBarLabelItem.setIcon(JarResources.getIcon("expandall.png"));
-        fStatusBarLabelItem.setToolTip("Click for application messages (such as # of permutations complete)");
+        fStatusBarLabelItem.setToolTipText("Click for application messages (such as # of permutations complete)");
 
         fJideStatusBar.add(fStatusBarLabelItem, JideBoxLayout.FLEXIBLE);
 
@@ -80,8 +71,6 @@ public class StatusBarJideImpl extends AppenderSkeleton implements edu.mit.broad
             }
 
         });
-
-
     }
 
     public JComponent getAsComponent() {
@@ -94,6 +83,7 @@ public class StatusBarJideImpl extends AppenderSkeleton implements edu.mit.broad
         final JidePopup popup = new JidePopup();
         popup.setMovable(true);
         popup.getContentPane().setLayout(new BorderLayout());
+
         fSystemConsoleComp.setPreferredSize(new Dimension(700, 350));
         popup.getContentPane().add(fSystemConsoleComp);
         popup.setDefaultFocusComponent(fSystemConsoleComp);
@@ -108,16 +98,10 @@ public class StatusBarJideImpl extends AppenderSkeleton implements edu.mit.broad
 
     }
 
-    // -------------------------------------------------------------------------------------------- //
-    // ------------------------------LOG4J APPENDER IMPL--------------------------------------- //
-    // -------------------------------------------------------------------------------------------- //
-
-    public void append(final LoggingEvent event) {
-
-        String txt = XLogger.getSimpleLayout().format(event);
-
+    @Override
+    public void append(LogEvent event) {
+        String txt = new String(getLayout().toByteArray(event));
         Level level = event.getLevel();
-
 
         if (level == Level.INFO) {
             fStatusBarLabelItem.setForeground(Color.BLACK);
@@ -128,19 +112,6 @@ public class StatusBarJideImpl extends AppenderSkeleton implements edu.mit.broad
         } else if (level == Level.WARN) {
             fStatusBarLabelItem.setForeground(Color.ORANGE);
             fStatusBarLabelItem.setText(txt);
-        } else if (level == Level.FATAL || level == Level.ERROR) {
-            // @note dont show it scares people
-            // /fStatusBarLabelItem.setForeground(Color.RED);
-            //fStatusBarLabelItem.setForeground(Color.RED);
-            //fStatusBarLabelItem.setText(txt);
         }
     }
-
-    public void close() {
-    }
-
-    public boolean requiresLayout() {
-        return false;
-    }
-
-} // End class StatusBarJideImpl
+}

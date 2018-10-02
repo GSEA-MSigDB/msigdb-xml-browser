@@ -1,10 +1,9 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package edu.mit.broad.msigdb_browser.xbench.core.api;
 
 import edu.mit.broad.msigdb_browser.genome.JarResources;
-import edu.mit.broad.msigdb_browser.genome.XLogger;
 import edu.mit.broad.msigdb_browser.genome.parsers.ObjectCache;
 import edu.mit.broad.msigdb_browser.genome.parsers.ParserFactory;
 import edu.mit.broad.msigdb_browser.xbench.RendererFactory2;
@@ -37,7 +36,7 @@ import java.util.Set;
  */
 public class FileManagerImpl implements FileManager {
 
-    private static final Logger klog = XLogger.getLogger(FileManagerImpl.class);
+    private static final Logger klog = Logger.getLogger(FileManagerImpl.class);
 
     // Lots of things made lazilly in an effort to speedup loading process
     // Also some dependencies to Application helped by lazy loading

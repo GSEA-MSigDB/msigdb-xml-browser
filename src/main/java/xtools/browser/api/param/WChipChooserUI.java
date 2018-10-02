@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package xtools.browser.api.param;
 
-import edu.mit.broad.msigdb_browser.genome.XLogger;
 import edu.mit.broad.msigdb_browser.genome.swing.GuiHelper;
 import edu.mit.broad.msigdb_browser.genome.swing.fields.GFieldPlusChooser;
 import edu.mit.broad.msigdb_browser.genome.swing.fields.GOptionsFieldPlusChooser;
@@ -22,7 +21,7 @@ import java.awt.event.ActionListener;
  */
 public class WChipChooserUI extends JPanel implements GFieldPlusChooser {
 
-    protected final Logger log = XLogger.getLogger(GOptionsFieldPlusChooser.class);
+    protected final Logger log = Logger.getLogger(GOptionsFieldPlusChooser.class);
     protected JTextField tfEntry = new JTextField(40);
     protected JButton bEntry = new JButton(GuiHelper.ICON_ELLIPSIS);
     protected WChipChooserWindow fWindow; // @note make lazilly -- see below

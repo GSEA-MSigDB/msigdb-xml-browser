@@ -50,9 +50,9 @@ processResources {
        timestamp_fs = date.format("yyyy-MM-dd_HHmmss")
     }
 
-    filesMatching('resources/edu/mit/broad/msigdb_browser/genome/resources/build.properties') {
+    filesMatching('edu/mit/broad/msigdb_browser/genome/resources/build.properties') {
         filter (ReplaceTokens,
-                tokens: [ VERSION: version, VERSION.MAJOR: version.major, VERSION.MINOR: version.minor, VERSION.PATCH: version.patch,
+                tokens: [ VERSION: version, VERSION_MAJOR: versionMajor, VERSION_MINOR: versionMinor, VERSION_PATCH: versionPatch,
                           BUILD: buildNumber, TIMESTAMP: timestamp ])
     }
 }

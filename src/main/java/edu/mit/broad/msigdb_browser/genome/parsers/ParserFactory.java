@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package edu.mit.broad.msigdb_browser.genome.parsers;
 
@@ -43,7 +43,7 @@ public class ParserFactory implements Constants {
             chipCacheDir.mkdirs();
         }
     }
-    private static final Logger klog = XLogger.getLogger(ParserFactory.class);
+    private static final Logger klog = Logger.getLogger(ParserFactory.class);
 
     /**
      * Privatized Class constructor

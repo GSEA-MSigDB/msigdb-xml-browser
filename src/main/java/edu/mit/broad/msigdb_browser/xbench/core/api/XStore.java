@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package edu.mit.broad.msigdb_browser.xbench.core.api;
 
-import edu.mit.broad.msigdb_browser.genome.XLogger;
 import edu.mit.broad.msigdb_browser.genome.alg.ComparatorFactory;
 import edu.mit.broad.msigdb_browser.genome.parsers.ParseUtils;
 import edu.mit.broad.msigdb_browser.genome.utils.FileUtils;
@@ -26,7 +25,7 @@ import java.util.List;
  */
 public class XStore extends AbstractListModel implements ComboBoxModel {
 
-    private static final Logger klog = XLogger.getLogger(XStore.class);
+    private static final Logger klog = Logger.getLogger(XStore.class);
 
     private File fFile;
 

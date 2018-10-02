@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package edu.mit.broad.msigdb_browser.xbench.project;
 
@@ -11,16 +11,17 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 
 import edu.mit.broad.msigdb_browser.genome.JarResources;
-import edu.mit.broad.msigdb_browser.genome.XLogger;
 
 import javax.swing.*;
+
+import org.apache.log4j.Logger;
 
 /**
  * @author Aravind Subramanian
  */
 public class ProjectLoggers {
 
-    private static final org.apache.log4j.Logger klog = XLogger.getLogger(ProjectLoggers.class);
+    private static final Logger klog = Logger.getLogger(ProjectLoggers.class);
 
     public static class MyLoggerLight {
 

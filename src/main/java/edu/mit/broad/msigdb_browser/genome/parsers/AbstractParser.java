@@ -1,10 +1,9 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package edu.mit.broad.msigdb_browser.genome.parsers;
 
 import edu.mit.broad.msigdb_browser.genome.Constants;
-import edu.mit.broad.msigdb_browser.genome.XLogger;
 import edu.mit.broad.msigdb_browser.genome.objects.PersistentObject;
 import edu.mit.broad.msigdb_browser.genome.utils.ClassUtils;
 
@@ -23,7 +22,7 @@ public abstract class AbstractParser implements Parser {
 
     protected final Logger log;
 
-    protected static final Logger klog = XLogger.getLogger(AbstractParser.class);
+    protected static final Logger klog = Logger.getLogger(AbstractParser.class);
 
     protected final Comment fComment;
 
@@ -44,8 +43,8 @@ public abstract class AbstractParser implements Parser {
             throw new IllegalArgumentException("Parameter repClass cannot be null");
         }
 
-        //this.log = XLogger.getLogger(this.getClass());
-        this.log = XLogger.getLogger(AbstractParser.class);
+        //this.log = Logger.getLogger(this.getClass());
+        this.log = Logger.getLogger(AbstractParser.class);
         this.fComment = new Comment();
         this.fRepClass = repClass;
         this.fRepClassName = ClassUtils.shorten(fRepClass);

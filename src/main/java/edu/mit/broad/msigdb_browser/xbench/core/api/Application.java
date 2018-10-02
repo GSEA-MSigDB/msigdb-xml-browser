@@ -1,13 +1,14 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package edu.mit.broad.msigdb_browser.xbench.core.api;
 
 import edu.mit.broad.msigdb_browser.genome.TraceUtils;
-import edu.mit.broad.msigdb_browser.genome.XLogger;
-import edu.mit.broad.msigdb_browser.xbench.core.StatusBar;
+import xapps.browser.api.frameworks.fiji.StatusBarAppender;
 
 import java.awt.*;
+
+import org.apache.log4j.Logger;
 
 /**
  * Factory method for an application
@@ -34,15 +35,7 @@ public class Application {
             throw new IllegalArgumentException("Param appHandler cannot be null");
         }
 
-        //klog.info("Setting Application Handler: " + appHandler.getClass());
         kAppHandler = appHandler;
-
-        //TraceUtils.showTrace();
-
-        if (appHandler.getStatusBar() != null) {
-            XLogger.addAppender(appHandler.getStatusBar());
-        }
-
     }
 
     private static void _check() {
@@ -72,7 +65,7 @@ public class Application {
 
     public interface Handler {
 
-        public StatusBar getStatusBar() throws HeadlessException;
+        public StatusBarAppender getStatusBarAppender() throws HeadlessException;
 
         public FileManager getFileManager();
 

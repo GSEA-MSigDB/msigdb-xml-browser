@@ -1,11 +1,10 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package edu.mit.broad.msigdb_browser.genome.viewers;
 
 import com.jidesoft.grid.SortableTable;
 
-import edu.mit.broad.msigdb_browser.genome.XLogger;
 import edu.mit.broad.msigdb_browser.genome.models.NumberedProxyModel;
 import edu.mit.broad.msigdb_browser.genome.swing.GuiHelper;
 
@@ -25,7 +24,7 @@ public abstract class AbstractViewer extends JPanel implements Viewer {
 
     protected Logger log;
 
-    protected static final Logger klog = XLogger.getLogger(AbstractViewer.class);
+    protected static final Logger klog = Logger.getLogger(AbstractViewer.class);
 
     private Icon fIcon;
 
@@ -35,7 +34,7 @@ public abstract class AbstractViewer extends JPanel implements Viewer {
 
     // Users of this method must call init
     protected AbstractViewer() {
-        this.log = XLogger.getLogger(this.getClass());
+        this.log = Logger.getLogger(this.getClass());
     }
 
     /**
@@ -63,7 +62,7 @@ public abstract class AbstractViewer extends JPanel implements Viewer {
         this.fName = name;
         this.fTitle = title;
         if (log == null) {
-            this.log = XLogger.getLogger(this.getClass());
+            this.log = Logger.getLogger(this.getClass());
         }
     }
 

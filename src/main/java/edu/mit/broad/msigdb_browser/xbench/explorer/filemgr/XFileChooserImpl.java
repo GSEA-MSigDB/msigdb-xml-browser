@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package edu.mit.broad.msigdb_browser.xbench.explorer.filemgr;
 
-import edu.mit.broad.msigdb_browser.genome.XLogger;
 import edu.mit.broad.msigdb_browser.genome.parsers.DataFormat;
 import edu.mit.broad.msigdb_browser.xbench.core.api.Application;
 
@@ -29,7 +28,7 @@ import java.io.File;
  */
 public class XFileChooserImpl extends JFileChooser implements XFileChooser {
 
-    private Logger log = XLogger.getLogger(XFileChooserImpl.class);
+    private Logger log = Logger.getLogger(XFileChooserImpl.class);
 
     /**
      * Class constructor

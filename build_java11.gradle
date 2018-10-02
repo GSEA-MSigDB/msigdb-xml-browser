@@ -40,9 +40,9 @@ processResources {
     // Set the current timestamp for release builds; pass in a blank property to enable (i.e. -Ptimestamp="" at CLI)
     if (timestamp.equals("")) { timestamp = date.format("EEE, d MMM yyyy HH:mm:ss Z") }
 
-    filesMatching('resources/edu/mit/broad/msigdb_browser/genome/resources/build.properties') {
+    filesMatching('edu/mit/broad/msigdb_browser/genome/resources/build.properties') {
         filter (ReplaceTokens,
-                tokens: [ VERSION: version, VERSION.MAJOR: version.major, VERSION.MINOR: version.minor, VERSION.PATCH: version.patch,
+                tokens: [ VERSION: version, VERSION_MAJOR: versionMajor, VERSION_MINOR: versionMinor, VERSION_PATCH: versionPatch,
                           BUILD: buildNumber, TIMESTAMP: timestamp ])
     }
 }
@@ -75,7 +75,7 @@ compileJava {
 }
 
 task createDist(type: Copy, dependsOn: jar)  {
-    from ("edu/mit/broad/msigdb_browser/genome/resources/XBench64x64.gif")
+    from ("edu/mit/broad/msigdb_browser/genome/resources/msigdb.png")
     from ('scripts/java11') {
         include 'msigdb-xml-browser*'
         include 'readme.txt'
@@ -150,7 +150,7 @@ task createMacAppDist(type: Copy, dependsOn: createDist) {
         into "MSigDB_XML_Browser_${version}_java11.app/Contents/MacOS"
     }
     with copySpec {
-        from ("edu/mit/broad/msigdb_browser/genome/resources/XBench64x64.gif")
+        from ("edu/mit/broad/msigdb_browser/genome/resources/msigdb.png")
         into "MSigDB_XML_Browser_${version}_java11.app/Contents/Resources"
     }
     with copySpec {

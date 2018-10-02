@@ -1,11 +1,10 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package xapps.browser.gsea;
 
 import com.jidesoft.comparator.ObjectComparatorManager;
 
-import edu.mit.broad.msigdb_browser.genome.XLogger;
 import edu.mit.broad.msigdb_browser.xbench.ComparatorFactory2;
 
 import org.apache.log4j.Logger;
@@ -21,7 +20,7 @@ import xapps.browser.api.MostMain;
  */
 public class Main extends MostMain {
 
-    private static final Logger klog = XLogger.getLogger(Main.class);
+    private static final Logger klog = Logger.getLogger(Main.class);
 
     /**
      * Class Constructor.

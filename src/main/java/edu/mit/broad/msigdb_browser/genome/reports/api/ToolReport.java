@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package edu.mit.broad.msigdb_browser.genome.reports.api;
 
@@ -45,8 +45,8 @@ import java.util.*;
  */
 // dont extend abstractobject -- easier to impl ourselves here as impl not pob but reports
 public class ToolReport implements Report {
-    private transient Logger log = XLogger.getLogger(this.getClass());
-    private transient static Logger klog = XLogger.getLogger(ToolReport.class);
+    private transient Logger log = Logger.getLogger(this.getClass());
+    private transient static Logger klog = Logger.getLogger(ToolReport.class);
 
     /**
      * @maint ALL OF THE OBJECTS STORED NEED TO BE SERIALIZABLE (as stored in http session)

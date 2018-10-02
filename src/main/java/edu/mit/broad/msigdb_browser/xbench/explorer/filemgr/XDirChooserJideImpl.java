@@ -1,11 +1,10 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package edu.mit.broad.msigdb_browser.xbench.explorer.filemgr;
 
 import com.jidesoft.swing.FolderChooser;
 
-import edu.mit.broad.msigdb_browser.genome.XLogger;
 import edu.mit.broad.msigdb_browser.xbench.core.api.Application;
 
 import org.apache.log4j.Logger;
@@ -25,7 +24,7 @@ public class XDirChooserJideImpl implements XDirChooser {
 
     private static final String DEFAULT_APPROVE_BUTTON_TEXT = "Open";
 
-    private final Logger log = XLogger.getLogger(this.getClass());
+    private final Logger log = Logger.getLogger(this.getClass());
 
     private FolderChooser fFolderChooser;
 

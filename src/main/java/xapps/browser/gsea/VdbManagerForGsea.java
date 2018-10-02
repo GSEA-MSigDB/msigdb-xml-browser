@@ -1,12 +1,11 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package xapps.browser.gsea;
 
 import edu.mit.broad.msigdb_browser.genome.Conf;
 import edu.mit.broad.msigdb_browser.genome.NamingConventions;
 import edu.mit.broad.msigdb_browser.genome.TraceUtils;
-import edu.mit.broad.msigdb_browser.genome.XLogger;
 import edu.mit.broad.msigdb_browser.xbench.core.api.VdbManager;
 import edu.mit.broad.msigdb_browser.xbench.prefs.XPreferencesFactory;
 
@@ -21,7 +20,7 @@ public class VdbManagerForGsea implements VdbManager {
 
     private String fCacheDate;
 
-    private static final Logger klog = XLogger.getLogger(VdbManagerForGsea.class);
+    private static final Logger klog = Logger.getLogger(VdbManagerForGsea.class);
 
     /**
      * Class constructor

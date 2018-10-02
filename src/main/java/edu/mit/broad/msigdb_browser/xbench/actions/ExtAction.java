@@ -1,9 +1,7 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package edu.mit.broad.msigdb_browser.xbench.actions;
-
-import edu.mit.broad.msigdb_browser.genome.XLogger;
 
 import org.apache.log4j.Logger;
 
@@ -19,7 +17,7 @@ import javax.swing.*;
 public abstract class ExtAction extends XAction {
 
     private String fPath;
-    protected final Logger log = XLogger.getLogger(ExtAction.class);
+    protected final Logger log = Logger.getLogger(ExtAction.class);
 
     protected ExtAction(String id, String name, String description, Icon icon) {
         super(id, name, description, icon);

@@ -1,11 +1,10 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package edu.mit.broad.msigdb_browser.xbench.core.api;
 
 import com.jidesoft.dialog.ButtonPanel;
 
-import edu.mit.broad.msigdb_browser.genome.XLogger;
 import edu.mit.broad.msigdb_browser.genome.swing.GuiHelper;
 
 import org.apache.log4j.Logger;
@@ -26,7 +25,7 @@ import java.awt.event.MouseEvent;
  */
 public class DialogDescriptorJide implements DialogDescriptor {
 
-    private static final Logger klog = XLogger.getLogger(DialogDescriptorJide.class);
+    private static final Logger klog = Logger.getLogger(DialogDescriptorJide.class);
 
     private JPanel fMainPanel;
 

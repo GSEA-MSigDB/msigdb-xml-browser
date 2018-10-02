@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package xapps.browser.gsea;
 
@@ -12,15 +12,15 @@ import com.jidesoft.docking.DockingManager;
 import edu.mit.broad.msigdb_browser.genome.Conf;
 import edu.mit.broad.msigdb_browser.genome.JarResources;
 import edu.mit.broad.msigdb_browser.genome.swing.GuiHelper;
+import edu.mit.broad.msigdb_browser.genome.swing.SystemConsole;
 import edu.mit.broad.msigdb_browser.xbench.actions.ShowAppRuntimeHomeDirAction;
 import edu.mit.broad.msigdb_browser.xbench.actions.ShowDefaultOutputDirAction;
 import edu.mit.broad.msigdb_browser.xbench.actions.XAction;
 import edu.mit.broad.msigdb_browser.xbench.actions.ext.BrowserAction;
-import edu.mit.broad.msigdb_browser.xbench.core.StatusBar;
 import edu.mit.broad.msigdb_browser.xbench.core.api.*;
 import edu.mit.broad.msigdb_browser.xbench.prefs.XPreferencesFactory;
 import xapps.browser.MSigDBViewerContainer;
-import xapps.browser.api.frameworks.fiji.StatusBarJideImpl;
+import xapps.browser.api.frameworks.fiji.StatusBarAppender;
 import xapps.browser.api.frameworks.fiji.WindowManagerImplJideTabbedPane;
 
 import javax.swing.*;
@@ -52,7 +52,7 @@ public class GseaFijiTabsApplicationFrame extends DefaultDockableHolder implemen
     // @note IMP IMP: this is the name under which docking prefs etc are stored
     public static final String PROFILE_NAME = "gsea_browser";
 
-    private StatusBar fStatusBar;
+    private StatusBarAppender fStatusBar;
 
     private GseaFijiTabsApplicationFrame fFrame = this;
 
@@ -95,7 +95,7 @@ public class GseaFijiTabsApplicationFrame extends DefaultDockableHolder implemen
 
         this.fWindowManager = new MyWindowManagerImplJideTabbedPane();
 
-        this.fStatusBar = new StatusBarJideImpl();
+        this.fStatusBar = SystemConsole.createStatusBarAppender("StatusBar");
 
         Application.registerHandler(this);
 
@@ -292,7 +292,7 @@ public class GseaFijiTabsApplicationFrame extends DefaultDockableHolder implemen
         return fWindowManager;
     }
 
-    public StatusBar getStatusBar() {
+    public StatusBarAppender getStatusBarAppender() {
         return fStatusBar;
     }
 
