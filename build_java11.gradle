@@ -3,7 +3,7 @@
 apply plugin: 'java'
 import org.apache.tools.ant.filters.ReplaceTokens
 
-ext.moduleName = 'org.gsea-msigdb.msigdb-xml-browser'
+ext.moduleName = 'org.gsea_msigdb.xmlbrowser'
 ext.mainClassName = 'xapps.browser.gsea.MSigDB_XML_Browser'
 
 // Put the Java 11 build into a special dir to avoid accidental collisions.
