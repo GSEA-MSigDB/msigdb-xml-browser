@@ -173,7 +173,7 @@ task createMacAppDist(type: Copy, dependsOn: createDist) {
 }
 
 task createMacAppDistZip(type: Zip, dependsOn: createMacAppDist) {
-    archiveName = "MSigDB_XML_Browser_${version}_java11.zip"
+    archiveName = "MSigDB_XML_Browser_${version}_java11.app.zip"
     destinationDir = file("${buildDir}/distZip")
     from "${buildDir}/MSigDB_XML_Browser-MacApp-dist"
     
