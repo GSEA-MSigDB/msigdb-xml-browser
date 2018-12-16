@@ -35,7 +35,7 @@ dependencies {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.10.1'
+    gradleVersion = '4.10.2'
 }
 
 sourceCompatibility = 1.8
@@ -58,14 +58,14 @@ processResources {
 }
 
 jar {
-    archiveName = "gsea-minimal-${version}.jar"
+    archiveName = "msigdb-xml-browser-minimal-${version}.jar"
     manifest {
         attributes(
             "Permissions": "all-permissions",
-            "Application-Name": "MSigDB_Browser",
+            "Application-Name": "MSigDB_XML_Browser",
             "Built-By": System.getProperty('user.name'),
             "Main-Class": mainClassName,
-            "MSigDB_Browser-Build-Date": timestamp,
+            "MSigDB_XML_Browser-Build-Date": timestamp,
             "Codebase": "http://*.broadinstitute.org/gsea/software https://*.broadinstitute.org/gsea/software http://*.broadinstitute.org:8080/gsea/software https://*.broadinstitute.org:8080/gsea/software http://*.gsea-msigdb.org/gsea/software https://*.gsea-msigdb.org/gsea/software http://*.msigdb.org/gsea/software https://*.msigdb.org/gsea/software",
             "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
         )
@@ -74,9 +74,9 @@ jar {
 
 task fullJar(type: Jar, dependsOn: jar) {
     // Based on https://discuss.gradle.org/t/removing-dependencies-from-a-jar-file-during-jar-task/5521/3
-    archiveName = "gsea-all_deps-${version}.jar"
+    archiveName = "msigdb-xml-browser-all_deps-${version}.jar"
     from {
-        ((configurations.compile - configurations.jarsToShipUntouched) + "${buildDir}/libs/gsea-minimal-${version}.jar").collect {
+        ((configurations.compile - configurations.jarsToShipUntouched) + "${buildDir}/libs/msigdb-xml-browser-minimal-${version}.jar").collect {
             zipTree(it)
         }
     } {
@@ -86,10 +86,10 @@ task fullJar(type: Jar, dependsOn: jar) {
     manifest {
         attributes(
             "Permissions": "all-permissions",
-            "Application-Name": "GSEA",
+            "Application-Name": "MSigDB_XML_Browser",
             "Built-By": System.getProperty('user.name'),
             "Main-Class": mainClassName,
-            "GSEA-Build-Date": timestamp,
+            "MSigDB_XML_Browser-Build-Date": timestamp,
             "Codebase": "http://*.broadinstitute.org/gsea/software https://*.broadinstitute.org/gsea/software http://*.broadinstitute.org:8080/gsea/software https://*.broadinstitute.org:8080/gsea/software http://*.gsea-msigdb.org/gsea/software https://*.gsea-msigdb.org/gsea/software http://*.msigdb.org/gsea/software https://*.msigdb.org/gsea/software",
             "Class-Path": configurations.jarsToShipUntouched.collect { it.getName() }.join(' ')
         )
@@ -100,8 +100,8 @@ task optimizeJar(type: proguard.gradle.ProGuardTask, dependsOn: fullJar) {
     doFirst { mkdir "proguard_log" }
     
     verbose
-    injars "${buildDir}/libs/gsea-all_deps-${version}.jar"
-    outjars "${buildDir}/libs/gsea-${version}.jar"
+    injars "${buildDir}/libs/msigdb-xml-browser-all_deps-${version}.jar"
+    outjars "${buildDir}/libs/msigdb-xml-browser-${version}.jar"
 
     libraryjars "${System.getProperty('java.home')}/lib", 
                 jarfilter: 'rt.jar,charsets.jar,jce.jar,jfr.jar,jsse.jar,resources.jar,ext/jfxrt.jar'
@@ -113,23 +113,23 @@ task optimizeJar(type: proguard.gradle.ProGuardTask, dependsOn: fullJar) {
 
 task createDist(type: Copy, dependsOn: optimizeJar)  {
     from ("scripts") {
-        include 'gsea.bat'
-        include 'gsea.command'
-        include 'gsea.sh'
+        include 'msigdb-xml-browser.bat'
+        include 'msigdb-xml-browser.command'
+        include 'msigdb-xml-browser.sh'
         include 'readme.txt'
         filter (ReplaceTokens, tokens: [ VERSION: version ])
     }
     with copySpec {
         from ("${buildDir}/libs") {
             // Use the fullJar for now, until PG is set
-            // include "gsea-${version}.jar"
-            include "gsea-all_deps-${version}.jar"
+            // include "msigdb-xml-browser-${version}.jar"
+            include "msigdb-xml-browser-all_deps-${version}.jar"
         }
         from (configurations.jarsToShipUntouched) { }
         into "lib"
     }
 
-    into "${buildDir}/GSEA-dist"
+    into "${buildDir}/MSigDB_XML_Browser-dist"
 }
 
 task signJars(dependsOn: createDist) {
@@ -137,13 +137,13 @@ task signJars(dependsOn: createDist) {
         // Only sign if the keystoreFile exists 
         ext.keystoreFile = file("${keystore}")
         if (keystoreFile.exists()) {
-            ant.jar( update: true, file: "build/GSEA-dist/lib/batik-codec-1.10.jar") {
+            ant.jar( update: true, file: "build/MSigDB_XML_Browser-dist/lib/batik-codec-1.10.jar") {
                 delegate.manifest { attribute(name: 'Permissions', value: 'all-permissions') }
             }
-            ant.jar( update: true, file: "build/GSEA-dist/lib/log4j-core-2.11.0.jar") {
+            ant.jar( update: true, file: "build/MSigDB_XML_Browser-dist/lib/log4j-core-2.11.0.jar") {
                 delegate.manifest { attribute(name: 'Permissions', value: 'all-permissions') }
             }
-            ant.signjar( jar: 'build/GSEA-dist/lib/*.jar', keystore:"${keystoreFile.absolutePath}",
+            ant.signjar( jar: 'build/MSigDB_XML_Browser-dist/lib/*.jar', keystore:"${keystoreFile.absolutePath}",
                          alias: "${alias}", keypass: "${keyPassword}", storepass: "${storePassword}", tsaurl: "${tsaurl}"
             )
         }
@@ -151,10 +151,10 @@ task signJars(dependsOn: createDist) {
 }
 
 task createDistZip(type: Zip, dependsOn: [createDist, signJars]) {
-    archiveName = "GSEA_${version}.zip"
+    archiveName = "MSigDB_XML_Browser_${version}.zip"
     destinationDir = file("${buildDir}/distZip")
-    baseName = "GSEA"
-    from "${buildDir}/GSEA-dist" exclude "gsea.bat"
+    baseName = "MSigDB_XML_Browser"
+    from "${buildDir}/MSigDB_XML_Browser-dist" exclude "msigdb-xml-browser.bat"
     into createDistZip.baseName + "_${version}"
 
     doLast {
@@ -165,30 +165,30 @@ task createDistZip(type: Zip, dependsOn: [createDist, signJars]) {
 task createMacDist(type: Copy, dependsOn: [createDist, signJars]) {
     with copySpec {
         from ("scripts/mac.app") exclude "Contents/Info.plist.template"
-        into "GSEA_${version}.app"
+        into "MSigDB_XML_Browser_${version}.app"
     }
     with copySpec {
         from ("scripts/mac.app/Contents/Info.plist.template")
         filter (ReplaceTokens, tokens: [ VERSION: version ])
         rename "Info.plist.template", "Info.plist"
-        into "GSEA_${version}.app/Contents"
+        into "MSigDB_XML_Browser_${version}.app/Contents"
     }
     with copySpec {
-        from ("${buildDir}/GSEA-dist/lib") include '*.jar'
-        into "GSEA_${version}.app/Contents/Java"
+        from ("${buildDir}/MSigDB_XML_Browser-dist/lib") include '*.jar'
+        into "MSigDB_XML_Browser_${version}.app/Contents/Java"
     }
 
-    into "${buildDir}/GSEA-Mac-dist"
+    into "${buildDir}/MSigDB_XML_Browser-Mac-dist"
 
     doLast {
-        project.exec { commandLine('chmod', '775', "${buildDir}/GSEA-Mac-dist/GSEA_${version}.app" ) }
+        project.exec { commandLine('chmod', '775', "${buildDir}/MSigDB_XML_Browser-Mac-dist/MSigDB_XML_Browser_${version}.app" ) }
     }
 }
 
 task createMacDistZip(type: Zip, dependsOn: createMacDist) {
-    archiveName = "GSEA_${version}.app.zip"
+    archiveName = "MSigDB_XML_Browser_${version}.app.zip"
     destinationDir = file("${buildDir}/distZip")
-    from "${buildDir}/GSEA-Mac-dist"
+    from "${buildDir}/MSigDB_XML_Browser-Mac-dist"
     
     doLast {
         project.exec { commandLine('chmod', '775', createMacDistZip.archivePath ) }
@@ -196,12 +196,12 @@ task createMacDistZip(type: Zip, dependsOn: createMacDist) {
 }
 
 task createWinDistZip(type: Zip, dependsOn: [createDist, signJars]) {
-    archiveName = "GSEA_Win_${version}.zip"
+    archiveName = "MSigDB_XML_Browser_Win_${version}.zip"
     destinationDir = file("${buildDir}/distZip")
-    baseName = "GSEA_Win"
-    from("${buildDir}/GSEA-dist") {
-        exclude "gsea.sh"
-        exclude "gsea.command"
+    baseName = "MSigDB_XML_Browser_Win"
+    from("${buildDir}/MSigDB_XML_Browser-dist") {
+        exclude "msigdb-xml-browser.sh"
+        exclude "msigdb-xml-browser.command"
     }
     into createWinDistZip.baseName + "_${version}"
 

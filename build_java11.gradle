@@ -52,9 +52,9 @@ jar {
     manifest {
         attributes(
             "Permissions": "all-permissions",
-            "Application-Name": "MSigDB_Browser",
+            "Application-Name": "MSigDB_XML_Browser",
             "Built-By": System.getProperty('user.name'),
-            "MSigDB_Browser-Build-Date": timestamp,
+            "MSigDB_XML_Browser-Build-Date": timestamp,
             "Main-Class": mainClassName,
         )
     }
