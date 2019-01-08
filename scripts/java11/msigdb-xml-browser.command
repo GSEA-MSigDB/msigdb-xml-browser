@@ -22,4 +22,4 @@ exec java --module-path="${prefix}/lib" -Xmx4g \
     -Xdock:name="MSigDB XML Browser" \
     -Xdock:icon="${prefix}/msigdb.png" \
     -Dapple.laf.useScreenMenuBar=true \
-    --module=org.gsea-msigdb.gsea/xapps.browser.gsea.MSigDB_XML_Browser "$@"
+    --module=org.gsea_msigdb.gsea/xapps.browser.gsea.MSigDB_XML_Browser "$@"

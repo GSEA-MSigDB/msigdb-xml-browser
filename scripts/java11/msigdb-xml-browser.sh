@@ -19,4 +19,4 @@ exec java --module-path="${prefix}/lib" -Xmx4g \
     @"${prefix}/msigdb-xml-browser.args" \
     --patch-module="jide.common=${prefix}/lib/jide-components-3.7.4.jar:${prefix}/lib/jide-dock-3.7.4.jar:${prefix}/lib/jide-grids-3.7.4.jar" \
     -Dapple.laf.useScreenMenuBar=true \
-    --module org.gsea-msigdb.gsea/xapps.browser.gsea.MSigDB_XML_Browser "$@"
+    --module org.gsea_msigdb.gsea/xapps.browser.gsea.MSigDB_XML_Browser "$@"
