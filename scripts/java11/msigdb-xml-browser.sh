@@ -15,8 +15,8 @@ else
     echo "Bundled JDK not found.  Using system JDK."
 fi
 
-exec java --module-path="${prefix}/lib" -Xmx4g \
+exec java --module-path="${prefix}/modules" -Xmx4g \
     @"${prefix}/msigdb-xml-browser.args" \
     --patch-module="jide.common=${prefix}/lib/jide-components-3.7.4.jar:${prefix}/lib/jide-dock-3.7.4.jar:${prefix}/lib/jide-grids-3.7.4.jar" \
     -Dapple.laf.useScreenMenuBar=true \
-    --module org.gsea_msigdb.gsea/xapps.browser.gsea.MSigDB_XML_Browser "$@"
+    --module org.gsea_msigdb.xmlbrowser/xapps.browser.gsea.MSigDB_XML_Browser "$@"

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003-2016 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2019 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  *******************************************************************************/
 module org.gsea_msigdb.xmlbrowser {
     exports edu.mit.broad.msigdb_browser.genome;
