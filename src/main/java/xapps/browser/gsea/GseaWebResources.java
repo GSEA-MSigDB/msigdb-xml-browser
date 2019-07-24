@@ -14,9 +14,9 @@ public class GseaWebResources {
     private final static String GSEA_FTP_SERVER_USERNAME = "anonymous";
     private final static String GSEA_FTP_SERVER_PASSWORD = "gsea@broadinstitute.org";
     private final static String GSEA_FTP_SERVER_BASE_DIR = "/pub/gsea";
-    private final static String GSEA_FTP_SERVER_CHIPFILES_SUB_DIR = "annotations";
-    private final static String GSEA_FTP_SERVER_MSIGDB_FILE_CURRENT = "msigdb_v4.0c.xml";
-    private final static String GSEA_FTP_SERVER_XML_SUB_DIR = "";
+    private final static String GSEA_FTP_SERVER_CHIPFILES_SUB_DIR = "annotations_versioned";
+    private final static String GSEA_FTP_SERVER_MSIGDB_FILE_CURRENT = "msigdb_v7.0.xml";
+    private final static String GSEA_FTP_SERVER_XML_SUB_DIR = "/xml";
 
     public static String getGseaFTPServer() {
         return GSEA_FTP_SERVER;
