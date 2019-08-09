@@ -225,7 +225,7 @@ task signWinExeDist(type: Exec, dependsOn: createWinExeDist) {
     }
 }
 
-build.dependsOn createLinuxDistZip,createMacDistZip,createMacAppDistZip
+build.dependsOn createLinuxDistZip,createMacAppDistZip
 
 if (!makensisCommand.equals("") && !signcodeCommand.equals("")) {
     build.dependsOn signWinExeDist
