@@ -12,4 +12,4 @@ if exist %BatchPath%\jdk-11 (
   set JAVA_CMD=java
 )
 
-start %JAVA_CMD% -showversion --module-path=%BatchPath%\modules -Xmx4g @%BatchPath%\msigdb-xml-browser.args --patch-module=jide.common=%BatchPath%\lib\jide-components-3.7.4.jar:%BatchPath%\lib\jide-dock-3.7.4.jar:%BatchPath%\lib\jide-grids-3.7.4.jar --module=org.gsea_msigdb.xmlbrowser/xapps.browser.gsea.MSigDB_XML_Browser  %*
+start %JAVA_CMD% -showversion --module-path=%BatchPath%\modules -Xmx4g @%BatchPath%\msigdb-xml-browser.args --patch-module=jide.common=%BatchPath%\lib\jide-components-3.7.4.jar;%BatchPath%\lib\jide-dock-3.7.4.jar;%BatchPath%\lib\jide-grids-3.7.4.jar --module=org.gsea_msigdb.xmlbrowser/xapps.browser.gsea.MSigDB_XML_Browser  %*
