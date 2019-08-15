@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2019 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package xapps.browser.gsea;
 
@@ -47,7 +47,7 @@ public class GseaFijiTabsApplicationFrame extends DefaultDockableHolder implemen
     private static String USER_VISIBLE_FRAME_TITLE = "MSigDB XML Browser " + buildProps.getProperty("build.version");
 
     // Application's Icon that people see in their operating system task bar
-    private static final Image ICON = JarResources.getImage("msigdb.png");
+    private static final Image ICON = JarResources.getImage("icon_64x64.png");
 
     // @note IMP IMP: this is the name under which docking prefs etc are stored
     public static final String PROFILE_NAME = "gsea_browser";

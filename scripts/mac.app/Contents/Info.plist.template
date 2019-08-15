@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>JavaAppLauncher</string>
 	<key>CFBundleIconFile</key>
-	<string>igv_icon.icns</string>
+	<string>XMLBrowser_Icon.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>xapps.browser.gsea.MSigDB_XML_Browser</string>
 	<key>CFBundleDisplayName</key>

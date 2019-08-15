@@ -20,6 +20,6 @@ exec java --module-path="${prefix}/../Java/modules" -Xmx4g \
     @"${prefix}/../Java/msigdb-xml-browser.args" \
     --patch-module="jide.common=${prefix}/../Java/lib/jide-components-3.7.4.jar:${prefix}/../Java/lib/jide-dock-3.7.4.jar:${prefix}/../Java/lib/jide-grids-3.7.4.jar" \
     -Xdock:name="MSigDB XML Browser" \
-    -Xdock:icon="${prefix}/../Resources/msigdb.png" \
+    -Xdock:icon="${prefix}/../Resources/icon_64x64.png" \
     -Dapple.laf.useScreenMenuBar=true \
 	--module=org.gsea_msigdb.xmlbrowser/xapps.browser.gsea.MSigDB_XML_Browser

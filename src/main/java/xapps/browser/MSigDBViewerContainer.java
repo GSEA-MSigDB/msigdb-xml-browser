@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2019 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package xapps.browser;
 
@@ -32,7 +32,7 @@ public class MSigDBViewerContainer extends AbstractViewer {
 
     public static final String NAME = "MSigDBBrowser";
 
-    public static final Icon ICON = JarResources.getIcon("msigdb16.png");
+    public static final Icon ICON = JarResources.getIcon("icon_16x16.png");
 
     private JideTabbedPane fTabbedPane;
 

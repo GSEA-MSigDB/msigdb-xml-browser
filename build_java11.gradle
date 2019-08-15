@@ -75,7 +75,7 @@ compileJava {
 }
 
 task createDist(type: Copy, dependsOn: jar)  {
-    from ("src/main/resources/edu/mit/broad/msigdb_browser/genome/resources/msigdb.png")
+    from ("src/main/resources/edu/mit/broad/msigdb_browser/genome/resources/icon_64x64.png")
     from ('scripts/java11') {
         include 'msigdb-xml-browser*'
         include 'readme.txt'
@@ -150,7 +150,7 @@ task createMacAppDist(type: Copy, dependsOn: createDist) {
         into "MSigDB_XML_Browser_${version}.app/Contents/MacOS"
     }
     with copySpec {
-        from ("src/main/resources/edu/mit/broad/msigdb_browser/genome/resources/msigdb.png")
+        from ("src/main/resources/edu/mit/broad/msigdb_browser/genome/resources/icon_64x64.png")
         into "MSigDB_XML_Browser_${version}.app/Contents/Resources"
     }
     with copySpec {
