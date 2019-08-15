@@ -191,7 +191,7 @@ task createWinDist(type: Copy, dependsOn: createDist) {
             exclude "*.sh"
             exclude "*.command"
         }
-        from ("scripts/nsis") { include "msigdb.ico" }
+        from ("scripts/nsis") { include "XMLBrowser_Icon.ico" }
         into "MSigDB_XML_Browser_${version}"
     }
     with copySpec {
