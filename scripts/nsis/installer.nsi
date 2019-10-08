@@ -17,6 +17,7 @@ Page instfiles
 UninstPage instfiles
 
 section
+     SetShellVarContext all
      setOutPath "$INSTDIR"
      File /a /r MSigDB_XML_Browser_@VERSION@\*.*
      createShortCut "$DESKTOP\MSigDB_XML_Browser_@VERSION@.lnk" "$INSTDIR\msigdb-xml-browser.bat" "" "$INSTDIR\XMLBrowser_Icon.ico"
@@ -36,7 +37,10 @@ FunctionEnd
 #RequestExecutionLevel admin
 
 section "Uninstall"
+    SetShellVarContext all
 	setAutoClose true
+	Delete "$SMPROGRAMS\MSigDB_XML_Browser_@VERSION@\GSEA.lnk"
+	Delete "$SMPROGRAMS\MSigDB_XML_Browser_@VERSION@\uninstaller.lnk"
 	RMDir /r "$SMPROGRAMS\MSigDB_XML_Browser_@VERSION@"
 	Delete "$Desktop\MSigDB_XML_Browser_@VERSION@.lnk"
 	
