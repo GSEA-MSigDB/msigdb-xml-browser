@@ -3,6 +3,25 @@
  */
 package xapps.browser.gsea;
 
+import java.awt.BorderLayout;
+import java.awt.HeadlessException;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
+
+import javax.swing.Action;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.WindowConstants;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
+
 import com.jgoodies.looks.HeaderStyle;
 import com.jgoodies.looks.Options;
 import com.jidesoft.docking.DefaultDockableHolder;
@@ -17,20 +36,15 @@ import edu.mit.broad.msigdb_browser.xbench.actions.ShowAppRuntimeHomeDirAction;
 import edu.mit.broad.msigdb_browser.xbench.actions.ShowDefaultOutputDirAction;
 import edu.mit.broad.msigdb_browser.xbench.actions.XAction;
 import edu.mit.broad.msigdb_browser.xbench.actions.ext.BrowserAction;
-import edu.mit.broad.msigdb_browser.xbench.core.api.*;
+import edu.mit.broad.msigdb_browser.xbench.core.api.Application;
+import edu.mit.broad.msigdb_browser.xbench.core.api.FileManager;
+import edu.mit.broad.msigdb_browser.xbench.core.api.FileManagerImpl;
+import edu.mit.broad.msigdb_browser.xbench.core.api.VdbManager;
+import edu.mit.broad.msigdb_browser.xbench.core.api.WindowManager;
 import edu.mit.broad.msigdb_browser.xbench.prefs.XPreferencesFactory;
 import xapps.browser.MSigDBViewerContainer;
 import xapps.browser.api.frameworks.fiji.StatusBarAppender;
 import xapps.browser.api.frameworks.fiji.WindowManagerImplJideTabbedPane;
-
-import javax.swing.*;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.SystemUtils;
-
-import java.awt.*;
-import java.awt.event.*;
-import java.util.Properties;
 
 public class GseaFijiTabsApplicationFrame extends DefaultDockableHolder implements Application.Handler {
 
@@ -48,6 +62,18 @@ public class GseaFijiTabsApplicationFrame extends DefaultDockableHolder implemen
 
     // Application's Icon that people see in their operating system task bar
     private static final Image ICON = JarResources.getImage("icon_64x64.png");
+
+    private static final List<Image> FRAME_ICONS = Arrays.asList(
+            JarResources.getImage("icon_16x16.png"),
+            JarResources.getImage("icon_16x16@2x.png"),
+            JarResources.getImage("icon_32x32.png"),
+            JarResources.getImage("icon_32x32@2x.png"),
+            JarResources.getImage("icon_128x128.png"),
+            JarResources.getImage("icon_128x128@2x.png"),
+            JarResources.getImage("icon_256x256.png"),
+            JarResources.getImage("icon_256x256@2x.png"),
+            JarResources.getImage("icon_512x512.png"),
+            JarResources.getImage("icon_512x512@2x.png"));
 
     // @note IMP IMP: this is the name under which docking prefs etc are stored
     public static final String PROFILE_NAME = "gsea_browser";
@@ -71,7 +97,7 @@ public class GseaFijiTabsApplicationFrame extends DefaultDockableHolder implemen
         fFrame.setVisible(false);
 
         fFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE); // we catch and ask
-        fFrame.setIconImage(ICON);
+        fFrame.setIconImages(FRAME_ICONS);
 
         // add a window listener to do clear up when windows closing.
         fWindowListener = new WindowAdapter() {
