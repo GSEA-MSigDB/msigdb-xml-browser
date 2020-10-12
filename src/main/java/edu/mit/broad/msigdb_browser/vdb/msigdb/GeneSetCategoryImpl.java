@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2020 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package edu.mit.broad.msigdb_browser.vdb.msigdb;
 
@@ -22,6 +22,8 @@ public class GeneSetCategoryImpl implements GeneSetCategory {
 
     public static GeneSetCategory IMMUNE = new GeneSetCategoryImpl("c7", "Immunologic Signatures", "Curated immune system gene sets");
 
+    public static GeneSetCategory CELL_TYPE = new GeneSetCategoryImpl("c8", "Cell Type Signatures", "Curated immune system gene sets");
+
     public static GeneSetCategory HALLMARK = new GeneSetCategoryImpl("H", "Hallmark", "Hallmark gene sets");
 
     public static GeneSetCategory ARCHIVED = new GeneSetCategoryImpl("ARCHIVED", "Archived", "Retired gene sets referenced by the Hallmarks");
@@ -34,6 +36,7 @@ public class GeneSetCategoryImpl implements GeneSetCategory {
             GO,
             PATHWAY,
             IMMUNE,
+            CELL_TYPE,
             HALLMARK,
             ARCHIVED
     };
