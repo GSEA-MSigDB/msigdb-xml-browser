@@ -91,6 +91,18 @@ task createDist(type: Copy, dependsOn: jar)  {
     into "${buildDir}/MSigDB_XML_Browser-dist"
 }
 
+task createDistZip(type: Zip, dependsOn: createDist) {
+    baseName = "MSigDB_XML_Browser"
+    archiveName = createDistZip.baseName + "_${version}.zip"
+    destinationDir = file("${buildDir}/distZip")
+    from "${buildDir}/MSigDB_XML_Browser-dist"
+    into createDistZip.baseName + "_${version}"
+
+    doLast {
+        project.exec { commandLine('chmod', '775', createDistZip.archivePath ) }
+    }
+}
+
 task createLinuxDistZip(type: Zip, dependsOn: createDist) {
     baseName = "MSigDB_XML_Browser_Linux"
     archiveName = createLinuxDistZip.baseName + "_${version}.zip"
@@ -225,7 +237,7 @@ task signWinExeDist(type: Exec, dependsOn: createWinExeDist) {
     }
 }
 
-build.dependsOn createLinuxDistZip,createMacDistZip,createMacAppDistZip
+build.dependsOn createDistZip,createLinuxDistZip,createMacDistZip,createMacAppDistZip
 
 if (!makensisCommand.equals("") && !signcodeCommand.equals("")) {
     build.dependsOn signWinExeDist
