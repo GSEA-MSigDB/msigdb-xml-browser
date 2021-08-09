@@ -214,7 +214,7 @@ public class VToolsForMSigDBBrowser {
                 final FSet query = (FSet) gsa.getGeneSet(false);
                 int inter = findInt(query.getMembers_quick(), gset);
                 if (inter > 0) {
-                    hits.add(new GeneSetAnnotationWithOverlaps.One(gsa, inter, query.getNumMembers()));
+                    hits.add(new GeneSetAnnotationWithOverlaps.One(gsa, inter, gset.getNumMembers()));
                 }
 
                 if (i % 250 == 0) {

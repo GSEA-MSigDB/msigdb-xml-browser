@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2017 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2021 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package xapps.browser.gsea;
 
@@ -14,9 +14,11 @@ import xapps.browser.VToolsForMSigDBBrowser;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 
 import java.awt.*;
+import java.text.DecimalFormat;
 
 /**
  * @author Aravind Subramanian
@@ -139,9 +141,9 @@ public class GeneSetAnnotationWithOverlaps {
             if (col == 0) {
                 return ann.getStandardName();
             } else if (col == 1) {
-                return fOnes[row].getOverlap() + "";
+                return fOnes[row].getOverlap();
             } else if (col == 2) {
-                return fOnes[row].getJaccard() + "";
+                return new Double(fOnes[row].getJaccard());
             } else if (col == 3) {
                 return new Integer(ann.getGeneSet(false).getNumMembers());
             } else if (col == 4) {
@@ -155,6 +157,8 @@ public class GeneSetAnnotationWithOverlaps {
         }
 
         public Class getColumnClass(int col) {
+            if (col == 1 || col == 3) { return Integer.class; } 
+            //if (col == 2) { return Double.class; } 
             return String.class;
         }
 
@@ -180,6 +184,8 @@ public class GeneSetAnnotationWithOverlaps {
             this.setLayout(new BorderLayout());
             TableModel dmodel = createModel();
             SortableTable table = createTable(dmodel, true, true);
+            table.getColumnModel().getColumn(2).setCellRenderer(new JaccardTableCellRenderer());
+            
             table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             this.setLayout(new BorderLayout());
             JScrollPane sp = new JScrollPane(table);
@@ -193,6 +199,15 @@ public class GeneSetAnnotationWithOverlaps {
 
     }    // End Viewer
 
+    public static class JaccardTableCellRenderer extends DefaultTableCellRenderer {
+        private static final DecimalFormat formatter = new DecimalFormat( "#.00000" );
+        
+        public Component getTableCellRendererComponent(JTable table, Object value, 
+                boolean isSelected, boolean hasFocus, int row, int column) {
+            if (value instanceof Double) { value = formatter.format((Double)value); }
+            return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column );
+        }
+    }
 
     class MyViewerHook implements VToolsForMSigDBBrowser.ViewerHook {
         private MSigDB msigdb;
@@ -228,6 +243,4 @@ public class GeneSetAnnotationWithOverlaps {
         }
 
     } // End class MyViewerHook
-
-
-} // End class GeneSetAnnotationWithOverlaps
+}

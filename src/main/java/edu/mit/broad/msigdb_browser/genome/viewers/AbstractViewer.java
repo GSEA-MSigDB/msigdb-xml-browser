@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2018 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ * Copyright (c) 2003-2021 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
  */
 package edu.mit.broad.msigdb_browser.genome.viewers;
 
@@ -18,7 +18,6 @@ import javax.swing.table.TableModel;
  * Contains commonly useful initialization and methods.
  *
  * @author Aravind Subramanian
- * @version %I%, %G%
  */
 public abstract class AbstractViewer extends JPanel implements Viewer {
 
@@ -104,24 +103,21 @@ public abstract class AbstractViewer extends JPanel implements Viewer {
     }
 
     protected static SortableTable createTable(final TableModel model,
-                                               final boolean addRowNumCol,
-                                               final boolean boldHeaders) {
+            final boolean addRowNumCol, final boolean boldHeaders) {
         TableModel amodel = model;
 
         if (addRowNumCol) {
             amodel = new NumberedProxyModel(model);
         }
 
-        SortableTable table = new SortableTable(amodel); // @note changed for jide
-
-        // @note comm out renderers Dec 2005 .. the move to jgoodies lnf makes the headers look not so good
+        SortableTable table = new SortableTable(amodel);
 
         if (addRowNumCol) { // has to be done after setting model
             setColumnSize(35, 0, table, true);
         }
 
         table.setCellSelectionEnabled(true);
+        
         return table;
     }
-
-} // End AbstractViewer
+}
