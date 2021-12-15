@@ -1,6 +1,6 @@
-/*******************************************************************************
- * Copyright (c) 2003-2019 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
- *******************************************************************************/
+/*
+ * Copyright (c) 2003-2021 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
+ */
 module org.gsea_msigdb.xmlbrowser {
     exports edu.mit.broad.msigdb_browser.genome;
     exports edu.mit.broad.msigdb_browser.genome.alg;
@@ -51,7 +51,6 @@ module org.gsea_msigdb.xmlbrowser {
     requires java.prefs;
     requires java.xml;
     requires jide.common;
-    requires log4j;
     requires org.apache.logging.log4j;
     requires org.apache.logging.log4j.core;
     requires looks;
